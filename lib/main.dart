@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './views/home.dart';
+import 'package:seletivo_jera/views/login.dart';
 // import './view/login.dart';
 
 void main() => runApp(MeuApp());
@@ -9,7 +9,7 @@ class MeuApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: LoginPage(),
     );
   }
 }

@@ -1,10 +1,6 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:seletivo_jera/Api/api_moviedb.dart';
 import 'package:seletivo_jera/models/login_m.dart';
 import 'package:seletivo_jera/repositories/login_rep.dart';
-import 'package:seletivo_jera/services/dio_singleton.dart';
 import 'package:seletivo_jera/views/home.dart';
 
 class LoginController {
