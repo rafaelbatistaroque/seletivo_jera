@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_jera/views/home.dart';
+import 'package:seletivo_jera/controllers/login.c.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,8 +8,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  var username = '';
-  var password = '';
+  LoginController loginC = LoginController();
+  var usuario, senha;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class _LoginPageState extends State<LoginPage> {
                 if (value.isEmpty) return 'Usuário Inválido';
                 return null;
               },
-              onSaved: (val) {
-                username = val;
+              onSaved: (inputBoxUsuario) {
+                usuario = inputBoxUsuario;
               },
             ),
             SizedBox(height: 20),
@@ -55,8 +55,8 @@ class _LoginPageState extends State<LoginPage> {
 
                 return null;
               },
-              onSaved: (val) {
-                password = val;
+              onSaved: (inputBoxSenha) {
+                senha = inputBoxSenha;
               },
             ),
             SizedBox(height: 20),
@@ -67,10 +67,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
+                  loginC.realizarLogin(usuario, senha, context);
                 }
               },
             ),
