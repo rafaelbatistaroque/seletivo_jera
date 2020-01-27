@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  shared_preferences:
+  provider:
   mobx:
   flutter_mobx:
   dio: any
