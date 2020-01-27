@@ -26,14 +26,6 @@ mixin _$PerfilController on PerfilControllerBase, Store {
     }, _$listaUsuarioAtom, name: '${_$listaUsuarioAtom.name}_set');
   }
 
-  final _$carregarPerfilPadraoAsyncAction = AsyncAction('carregarPerfilPadrao');
-
-  @override
-  Future carregarPerfilPadrao(Login usuarioAtual) {
-    return _$carregarPerfilPadraoAsyncAction
-        .run(() => super.carregarPerfilPadrao(usuarioAtual));
-  }
-
   final _$deletarDadosAsyncAction = AsyncAction('deletarDados');
 
   @override
