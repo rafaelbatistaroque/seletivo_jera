@@ -10,7 +10,7 @@ class LoginRep {
     return response.data['request_token'];
   }
 
-  Future<Login> autenticarUsuario(Login usuarioLogin) async {
+  Future<Response> autenticarUsuario(Login usuarioLogin) async {
     Response response = await DioSingleton().dio.post(
       'authentication/token/validate_with_login',
       queryParameters: {
@@ -22,14 +22,6 @@ class LoginRep {
         "request_token": usuarioLogin.token
       },
     );
-    return Login.fromJson(response.data);
-  }
-
-  Future<String> obterIdSecao(String token) async {
-    Response response = await DioSingleton().dio.post(
-        'authentication/session/new',
-        queryParameters: {'api_key': API.apiKey},
-        data: {'request_token': token});
-    return response.data['session_id'];
+    return response;
   }
 }
