@@ -3,25 +3,25 @@ class Usuario {
   String email;
   String senha;
   String dataNasc;
-  String token;
+  String idSecao;
 
-  Usuario({this.nome, this.email, this.senha, this.dataNasc, this.token});
+  Usuario({this.nome, this.email, this.senha, this.dataNasc, this.idSecao});
 
   Usuario.fromJson(Map<String, dynamic> json) {
-    nome = json['username'];
+    nome = json['name'];
     email = json['email'];
     senha = json['password'];
     dataNasc = json['data_nasc'];
-    token = json['request_token'];
+    idSecao = json['session_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.nome;
+    data['name'] = this.nome;
     data['email'] = this.email;
     data['password'] = this.senha;
     data['data_nasc'] = this.dataNasc;
-    data['request_token'] = this.token;
+    data['session_id'] = this.idSecao;
 
     return data;
   }
