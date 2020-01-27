@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:seletivo_jera/models/login_m.dart';
 import 'package:seletivo_jera/repositories/login_rep.dart';
-import 'package:seletivo_jera/views/home.dart';
+import 'package:seletivo_jera/views/perfil.dart';
 
 class LoginController {
-  LoginRep _loginRep = LoginRep();
-  Login _login = Login();
+  realizarLogin(Login loginAtual, BuildContext context) async {
+    LoginRep _loginRepositorio = LoginRep();
 
-  realizarLogin(String usuario, String senha, BuildContext context) async {
-    this._login.usuario = usuario;
-    this._login.senha = senha;
+    loginAtual.token = await _loginRepositorio.obterToken();
 
-    _login.token = await _loginRep.obterToken();
-    await _loginRep.autenticarUsuario(_login);
-    await _loginRep.obterIdSecao(this._login.token).then((result) {
-      this._login.idSecao = result;
-      if (this._login.idSecao != null) {
+    await _loginRepositorio.autenticarUsuario(loginAtual).then((resposta) {
+      if (resposta.statusCode == 200) {
         Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Home(_login)),
-        );
-        return;
+            context, MaterialPageRoute(builder: (context) => PerfilPage()));
       }
+      return;
     });
   }
 }
