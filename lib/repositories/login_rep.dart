@@ -24,4 +24,12 @@ class LoginRep {
     );
     return response;
   }
+
+  Future<String> obterIdSecao(String token) async {
+    Response response = await DioSingleton().dio.post(
+        'authentication/session/new',
+        queryParameters: {'api_key': API.apiKey},
+        data: {'request_token': token});
+    return response.statusCode == 200 ? response.data['session_id'] : null;
+  }
 }

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:seletivo_jera/controllers/login.c.dart';
-import 'package:seletivo_jera/models/login_m.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final loginAtual = Provider.of<Login>(context);
     final loginController = Provider.of<LoginController>(context);
 
     return Scaffold(
@@ -33,7 +31,7 @@ class LoginPage extends StatelessWidget {
                   return null;
                 },
                 onSaved: (inputBoxUsuario) {
-                  loginAtual.usuario = inputBoxUsuario;
+                  loginController.loginAtual.usuario = inputBoxUsuario;
                 },
               ),
               SizedBox(height: 20),
@@ -51,7 +49,7 @@ class LoginPage extends StatelessWidget {
                   return null;
                 },
                 onSaved: (inputBoxSenha) {
-                  loginAtual.senha = inputBoxSenha;
+                  loginController.loginAtual.senha = inputBoxSenha;
                 },
               ),
               SizedBox(height: 20),
@@ -62,7 +60,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    loginController.realizarLogin(loginAtual, context);
+                    loginController.realizarLogin(context);
                   }
                 },
               ),
