@@ -12,7 +12,6 @@ class Usuario {
     email = json['email'];
     senha = json['password'];
     dataNasc = json['data_nasc'];
-    idSecao = json['session_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -21,7 +20,6 @@ class Usuario {
     data['email'] = this.email;
     data['password'] = this.senha;
     data['data_nasc'] = this.dataNasc;
-    data['session_id'] = this.idSecao;
 
     return data;
   }
