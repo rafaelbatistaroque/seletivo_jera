@@ -11,27 +11,27 @@ abstract class PerfilControllerBase with Store {
   PerfilControllerBase() {
     _perfilRepositorio = PerfilRep();
 
-    listaUsuario.add(Usuario(
-        nome: 'User Padrão',
-        dataNasc: '',
-        email: '',
-        senha: '',
-        idSecao: '2222'));
+    adicionarNovoPerfil();
   }
 
   @observable
-  ObservableList<dynamic> listaUsuario = [].asObservable();
+  var listaUsuario = ObservableList<dynamic>().asObservable();
 
   @action
-  adicionarNovoPerfil(
-      String nome, String email, String senha, String dataNasc) {
-    listaUsuario.add(Usuario(
-        nome: nome,
-        email: email,
-        senha: senha,
-        dataNasc: dataNasc,
-        idSecao: '123'));
-  }
+  adicionarNovoPerfil({
+    String nome = 'User Padrão',
+    String email,
+    String senha,
+    String dataNasc,
+  }) =>
+      listaUsuario.add(
+        Usuario(
+            nome: nome,
+            email: email,
+            senha: senha,
+            dataNasc: dataNasc,
+            idSecao: '123'),
+      );
 
   @action
   deletarDados() async {

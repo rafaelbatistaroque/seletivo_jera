@@ -38,10 +38,14 @@ mixin _$PerfilController on PerfilControllerBase, Store {
 
   @override
   dynamic adicionarNovoPerfil(
-      String nome, String email, String senha, String dataNasc) {
+      {String nome = 'User Padrão',
+      String email,
+      String senha,
+      String dataNasc}) {
     final _$actionInfo = _$PerfilControllerBaseActionController.startAction();
     try {
-      return super.adicionarNovoPerfil(nome, email, senha, dataNasc);
+      return super.adicionarNovoPerfil(
+          nome: nome, email: email, senha: senha, dataNasc: dataNasc);
     } finally {
       _$PerfilControllerBaseActionController.endAction(_$actionInfo);
     }

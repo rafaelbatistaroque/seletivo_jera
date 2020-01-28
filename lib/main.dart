@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:seletivo_jera/controllers/home_c.dart';
+import 'package:seletivo_jera/controllers/perfis_c.dart';
 import 'package:seletivo_jera/controllers/usuario_c.dart';
-import 'package:seletivo_jera/models/usuario_m.dart';
-import 'package:seletivo_jera/repositories/login_rep.dart';
 import 'package:seletivo_jera/views/login.dart';
 
 import 'controllers/login.c.dart';
@@ -15,11 +15,10 @@ class MeuApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // Provider<PerfilController>(create: (_) => PerfilController()),
+        Provider<PerfilController>(create: (_) => PerfilController()),
         Provider<UsuarioController>(create: (_) => UsuarioController()),
-        Provider<Usuario>(create: (_) => Usuario()),
+        Provider<HomeController>(create: (_) => HomeController()),
         Provider<LoginController>(create: (_) => LoginController()),
-        Provider<LoginRep>(create: (_) => LoginRep())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

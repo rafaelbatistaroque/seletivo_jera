@@ -14,6 +14,7 @@ class DioSingleton {
   _initDio() {
     _dio = Dio();
     _dio.options.baseUrl = API.urlBaseMovieDb;
+    _dio.options.contentType = API.contentType;
   }
 
   Dio get dio => _dio;

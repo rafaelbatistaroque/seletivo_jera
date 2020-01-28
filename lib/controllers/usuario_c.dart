@@ -6,10 +6,14 @@ part 'usuario_c.g.dart';
 class UsuarioController = UsuarioControllerBase with _$UsuarioController;
 
 abstract class UsuarioControllerBase with Store {
+  UsuarioRep _usuarioRep;
+
   @observable
   String nomeUsuario;
 
-  UsuarioRep _usuarioRep = UsuarioRep();
+  UsuarioControllerBase() {
+    _usuarioRep = UsuarioRep();
+  }
 
   @action
   obterDetalhesDeUsuario(Usuario usuarioLogado) async {

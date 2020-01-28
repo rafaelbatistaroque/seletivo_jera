@@ -1,74 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:seletivo_jera/controllers/login.c.dart';
 import 'package:seletivo_jera/controllers/perfis_c.dart';
-import 'package:seletivo_jera/models/login_m.dart';
 import 'package:seletivo_jera/models/usuario_m.dart';
+import 'package:seletivo_jera/views/home.dart';
 
 class PerfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final perfilController = PerfilController();
-    final loginAtual = Provider.of<Login>(context);
+    final loginController = Provider.of<LoginController>(context);
+    final perfilController = Provider.of<PerfilController>(context);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Observer(builder: (_) {
-          return Text('Selecione seu perfil');
-        }),
+        title: Observer(
+            builder: (_) => Text(
+                'Selecione seu perfil ${loginController.loginAtual.usuario}')),
       ),
-      body: FutureBuilder(
-          future: perfilController.carregarPerfilPadrao(loginAtual),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Container(
-                    child: Center(child: CircularProgressIndicator()));
-              case ConnectionState.done:
-                return Observer(builder: (_) {
-                  return ListView.builder(
-                    itemCount: perfilController.listaUsuario.length,
-                    itemBuilder: (_, index) {
-                      var item = perfilController.listaUsuario[index];
-                      return _construirListTile(item);
-                    },
-                  );
-                });
-              default:
-                return Container(
-                    child: Center(
-                  child: Text('Ops! Deu ruim'),
-                ));
-            }
-          }),
+      body: Observer(builder: (_) {
+        return ListView.builder(
+          itemCount: perfilController.listaUsuario.length,
+          itemBuilder: (_, index) {
+            var item = perfilController.listaUsuario[index];
+            return _construirListTile(
+              item,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      Home(usuarioPerfil: perfilController.listaUsuario[index]),
+                ),
+              ),
+            );
+          },
+        );
+      }),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return _cadastroDePerfisDialog(
-                    context, loginAtual, perfilController);
-              });
+          if (loginController.qntPerfil < 4) {
+            showDialog(
+                context: context,
+                builder: (_) {
+                  return _cadastroDePerfisDialog(context,
+                      (nome, dataNasc, email, senha) {
+                    perfilController.adicionarNovoPerfil(
+                        nome: nome,
+                        email: email,
+                        senha: senha,
+                        dataNasc: dataNasc);
+                  }, () {
+                    loginController.adicionarMaisUmQntPerfil();
+                  });
+                });
+          } else
+            return null;
         },
       ),
     );
   }
 
-  Widget _construirListTile(Usuario usuario) {
+//=======================
+//Item Lista
+//=======================
+  Widget _construirListTile(Usuario usuario, Function irParaHome) {
     return ListTile(
       title: Text(
         usuario.nome,
         style: TextStyle(color: Colors.green),
       ),
       subtitle: Text('Id seção: ${usuario.idSecao}'),
-      onTap: () {},
+      onTap: irParaHome,
     );
   }
 
-  Widget _cadastroDePerfisDialog(BuildContext context, Login loginAtual,
-      PerfilController perfilController) {
+//==================================
+//Formulário de CAadstro AlertDialog
+//==================================
+  Widget _cadastroDePerfisDialog(BuildContext context,
+      Function adicionarNovoPerfil, Function adicionarMaisUm) {
     final _formKey = GlobalKey<FormState>();
     String nome, dataNasc, email, senha;
 
@@ -137,11 +149,10 @@ class PerfilPage extends StatelessWidget {
         FlatButton(
             child: Text('Salvar'),
             onPressed: () {
-              if (loginAtual.qntPerfis <= 4 &&
-                  _formKey.currentState.validate()) {
+              if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                perfilController.adicionarNovoPerfil(
-                    nome, email, senha, dataNasc);
+                adicionarNovoPerfil(nome, email, senha, dataNasc);
+                adicionarMaisUm();
                 Navigator.pop(context);
               }
             }),
