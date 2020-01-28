@@ -1,0 +1,51 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'home_c.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$HomeController on HomeControlerBase, Store {
+  final _$filmesAtom = Atom(name: 'HomeControlerBase.filmes');
+
+  @override
+  ObservableList<dynamic> get filmes {
+    _$filmesAtom.context.enforceReadPolicy(_$filmesAtom);
+    _$filmesAtom.reportObserved();
+    return super.filmes;
+  }
+
+  @override
+  set filmes(ObservableList<dynamic> value) {
+    _$filmesAtom.context.conditionallyRunInAction(() {
+      super.filmes = value;
+      _$filmesAtom.reportChanged();
+    }, _$filmesAtom, name: '${_$filmesAtom.name}_set');
+  }
+
+  final _$obterListadeFilmesAsyncAction = AsyncAction('obterListadeFilmes');
+
+  @override
+  Future obterListadeFilmes() {
+    return _$obterListadeFilmesAsyncAction
+        .run(() => super.obterListadeFilmes());
+  }
+
+  final _$pesquisarFilmesAsyncAction = AsyncAction('pesquisarFilmes');
+
+  @override
+  Future pesquisarFilmes(String query) {
+    return _$pesquisarFilmesAsyncAction.run(() => super.pesquisarFilmes(query));
+  }
+
+  final _$marcarComoFavoritoAsyncAction = AsyncAction('marcarComoFavorito');
+
+  @override
+  Future marcarComoFavorito(String idSecao, Filme filme) {
+    return _$marcarComoFavoritoAsyncAction
+        .run(() => super.marcarComoFavorito(idSecao, filme));
+  }
+}
